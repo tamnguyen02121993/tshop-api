@@ -1,0 +1,12 @@
+@HOST=http://localhost:5087
+@ID=00000000-0000-0000-0000-000000000000
+PUT {{HOST}}/api/contacts/{{ID}}
+Content-Type: application/json
+
+{
+    "id": "00000000-0000-0000-0000-000000000000",
+    "email": "tamnguyen02121993@gmail.com",
+    "phoneNumber": "123456789",
+    "content": "Content",
+    "status": "PENDING"
+}

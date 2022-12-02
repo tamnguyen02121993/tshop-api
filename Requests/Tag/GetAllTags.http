@@ -1,0 +1,4 @@
+@HOST=http://localhost:5087
+
+GET {{HOST}}/api/tags/all
+Content-Type: application/json

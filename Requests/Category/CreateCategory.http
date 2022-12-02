@@ -1,0 +1,9 @@
+@HOST=http://localhost:5087
+POST {{HOST}}/api/categories
+Content-Type: application/json
+
+{
+    "name": "Thời trang nam",
+    "description": "Quần áo thời trang dành cho nam giới",
+    "status": "ACTIVE"
+}

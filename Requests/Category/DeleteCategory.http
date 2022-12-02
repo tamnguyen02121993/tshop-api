@@ -1,0 +1,4 @@
+@HOST=http://localhost:5087
+@ID=4
+DELETE {{HOST}}/api/categories/{{ID}}
+Content-Type: application/json

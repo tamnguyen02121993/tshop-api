@@ -1,0 +1,11 @@
+@HOST=http://localhost:5087
+@ID=4
+PUT {{HOST}}/api/appconfigs/{{ID}}
+Content-Type: application/json
+
+{
+    "id": 4,
+    "key": "Chanel edited",
+    "value": "Chanel edited",
+    "status": "ACTIVE"
+}

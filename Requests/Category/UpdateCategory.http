@@ -1,0 +1,11 @@
+@HOST=http://localhost:5087
+@ID=8
+PUT {{HOST}}/api/categories/{{ID}}
+Content-Type: application/json
+
+{
+    "id": 8,
+    "name": "Quần áo nam edited 1",
+    //"description": "Description edited",
+    "status": "ACTIVE"
+}

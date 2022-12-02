@@ -1,0 +1,4 @@
+@HOST=http://localhost:5087
+@ID=00000000-0000-0000-0000-000000000000
+DELETE {{HOST}}/api/contact/{{ID}}
+Content-Type: application/json

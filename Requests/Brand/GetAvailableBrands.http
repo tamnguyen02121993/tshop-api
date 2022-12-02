@@ -1,0 +1,4 @@
+@HOST=http://localhost:5087
+
+GET {{HOST}}/api/brands/available
+Content-Type: application/json

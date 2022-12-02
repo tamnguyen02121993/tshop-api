@@ -1,0 +1,10 @@
+@HOST=http://localhost:5087
+@ID=4
+PUT {{HOST}}/api/tags/{{ID}}
+Content-Type: application/json
+
+{
+    "id": 4,
+    "title": "Chanel edited",
+    "status": "ACTIVE"
+}

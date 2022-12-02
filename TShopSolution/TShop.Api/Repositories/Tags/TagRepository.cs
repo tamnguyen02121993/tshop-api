@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TShop.Api.EF;
 using TShop.Api.Models;
+using TShop.Contracts.Utils.Commons;
 using TShop.Contracts.Utils.Enums;
 
 namespace TShop.Api.Repositories.Tags;
@@ -27,12 +28,64 @@ public class TagRepository : ITagRepository
 
     public IQueryable<Tag> GetAllTags()
     {
-        return _context.Tags;
+        return _context.Tags.AsNoTracking();
+    }
+
+    public async Task<Pagination<Tag>> GetAllTags(int pageIndex, int pageSize, string? search)
+    {
+        var query = _context.Tags.AsNoTracking();
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            query = query.Where(x => x.Title.ToLower().Contains(search.ToLower()));
+        }
+
+        var data = await query.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+        var totalRows = await _context.Tags.CountAsync();
+        var totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+        return new Pagination<Tag>
+        {
+            Data = data,
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            TotalRows = totalRows,
+            TotalPages = totalPages,
+            HasNext = pageIndex + 1 < totalPages,
+            HasPrevious = pageIndex > 0
+        };
     }
 
     public IQueryable<Tag> GetAvailableTags()
     {
-        return _context.Tags.Where(x => x.Status == Status.ACTIVE);
+        return _context.Tags.Where(x => x.Status == Status.ACTIVE).AsNoTracking();
+    }
+
+    public async Task<Pagination<Tag>> GetAvailableTags(int pageIndex, int pageSize, string? search)
+    {
+        var query = _context.Tags.AsNoTracking();
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            query = query.Where(x => x.Status == Status.ACTIVE && x.Title.ToLower().Contains(search.ToLower()));
+        }
+        else
+        {
+            query = query.Where(x => x.Status == Status.ACTIVE);
+        }
+
+        var data = await query.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+        var totalRows = await _context.Tags.CountAsync();
+        var totalPages = (int)Math.Ceiling((double)totalRows / pageSize);
+
+        return new Pagination<Tag>
+        {
+            Data = data,
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            TotalRows = totalRows,
+            TotalPages = totalPages,
+            HasNext = pageIndex + 1 < totalPages,
+            HasPrevious = pageIndex > 0
+        };
     }
 
     public async Task<Tag?> GetTagById(int id)

@@ -9,6 +9,9 @@ using TShop.Api.Features.AppConfigs.Queries.GetAllAppConfigs;
 using TShop.Api.Features.AppConfigs.Queries.GetAvailableAppConfigs;
 using TShop.Api.Features.AppConfigs.Queries.GetAppConfigById;
 using TShop.Contracts.AppConfig;
+using TShop.Contracts.Utils.Commons;
+using TShop.Api.Features.AppConfigs.Queries.GetAvailableAppConfigsPagination;
+using TShop.Api.Features.AppConfigs.Queries.GetAllAppConfigsPagination;
 
 namespace TShop.Api.Controllers;
 
@@ -28,13 +31,13 @@ public class AppConfigsController : ApiController
         ErrorOr<AppConfigResponse> createAppConfigResult = await _sender.Send(_mapper.Map<CreateAppConfigCommand>(request));
 
         return createAppConfigResult.Match(
-            appConfig => CreatedAtAction(nameof(GetAppConfigById), new {id = appConfig.Id}, appConfig),
+            appConfig => CreatedAtAction(nameof(GetAppConfigById), new { id = appConfig.Id }, appConfig),
             errors => Problem(errors)
         );
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetAppConfigById([FromRoute]int id)
+    public async Task<IActionResult> GetAppConfigById([FromRoute] int id)
     {
         ErrorOr<AppConfigResponse> getAppConfigResult = await _sender.Send(new GetAppConfigByIdQuery
         {
@@ -55,10 +58,36 @@ public class AppConfigsController : ApiController
         return Ok(appConfigs);
     }
 
+    [HttpGet("all-pagination")]
+    public async Task<IActionResult> GetAllAppConfigsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    {
+        Pagination<AppConfigResponse> appConfigs = await _sender.Send(new GetAllAppConfigsPaginationQuery
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Search = search
+        });
+
+        return Ok(appConfigs);
+    }
+
     [HttpGet("available")]
     public async Task<IActionResult> GetAvailableAppConfigs()
     {
         List<AppConfigResponse> appConfigs = await _sender.Send(new GetAvailableAppConfigsQuery());
+
+        return Ok(appConfigs);
+    }
+
+    [HttpGet("available-pagination")]
+    public async Task<IActionResult> GetAvailableAppConfigsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    {
+        Pagination<AppConfigResponse> appConfigs = await _sender.Send(new GetAvailableAppConfigsPaginationQuery
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Search = search
+        });
 
         return Ok(appConfigs);
     }

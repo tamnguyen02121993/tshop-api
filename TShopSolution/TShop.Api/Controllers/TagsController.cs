@@ -6,9 +6,12 @@ using TShop.Api.Features.Tags.Commands.CreateTag;
 using TShop.Api.Features.Tags.Commands.DeleteTag;
 using TShop.Api.Features.Tags.Commands.UpdateTag;
 using TShop.Api.Features.Tags.Queries.GetAllTags;
+using TShop.Api.Features.Tags.Queries.GetAllTagsPagination;
 using TShop.Api.Features.Tags.Queries.GetAvailableTags;
+using TShop.Api.Features.Tags.Queries.GetAvailableTagsPagination;
 using TShop.Api.Features.Tags.Queries.GetTagById;
 using TShop.Contracts.Tag;
+using TShop.Contracts.Utils.Commons;
 
 namespace TShop.Api.Controllers;
 
@@ -28,13 +31,13 @@ public class TagsController : ApiController
         ErrorOr<TagResponse> createTagResult = await _sender.Send(_mapper.Map<CreateTagCommand>(request));
 
         return createTagResult.Match(
-            tag => CreatedAtAction(nameof(GetTagById), new {id = tag.Id}, tag),
+            tag => CreatedAtAction(nameof(GetTagById), new { id = tag.Id }, tag),
             errors => Problem(errors)
         );
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetTagById([FromRoute]int id)
+    public async Task<IActionResult> GetTagById([FromRoute] int id)
     {
         ErrorOr<TagResponse> getTagResult = await _sender.Send(new GetTagByIdQuery
         {
@@ -55,10 +58,36 @@ public class TagsController : ApiController
         return Ok(tags);
     }
 
+    [HttpGet("all-pagination")]
+    public async Task<IActionResult> GetAllTagsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    {
+        Pagination<TagResponse> tags = await _sender.Send(new GetAllTagsPaginationQuery
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Search = search
+        });
+
+        return Ok(tags);
+    }
+
     [HttpGet("available")]
     public async Task<IActionResult> GetAvailableTags()
     {
         List<TagResponse> tags = await _sender.Send(new GetAvailableTagsQuery());
+
+        return Ok(tags);
+    }
+
+    [HttpGet("available-pagination")]
+    public async Task<IActionResult> GetAvailableTagsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    {
+        Pagination<TagResponse> tags = await _sender.Send(new GetAvailableTagsPaginationQuery
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Search = search
+        });
 
         return Ok(tags);
     }

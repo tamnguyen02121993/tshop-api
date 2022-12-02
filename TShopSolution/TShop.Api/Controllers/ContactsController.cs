@@ -6,13 +6,16 @@ using TShop.Api.Features.Contacts.Commands.CreateContact;
 using TShop.Api.Features.Contacts.Commands.DeleteContact;
 using TShop.Api.Features.Contacts.Commands.UpdateContact;
 using TShop.Api.Features.Contacts.Queries.GetAllContacts;
+using TShop.Api.Features.Contacts.Queries.GetAllContactsPagination;
 using TShop.Api.Features.Contacts.Queries.GetAvailableContacts;
+using TShop.Api.Features.Contacts.Queries.GetAvailableContactsPagination;
 using TShop.Api.Features.Contacts.Queries.GetContactById;
 using TShop.Contracts.Contact;
+using TShop.Contracts.Utils.Commons;
 
 namespace TShop.Api.Controllers;
 
-public class ContactsController: ApiController
+public class ContactsController : ApiController
 {
     private readonly ISender _sender;
     private readonly IMapper _mapper;
@@ -55,10 +58,36 @@ public class ContactsController: ApiController
         return Ok(contacts);
     }
 
+    [HttpGet("all-pagination")]
+    public async Task<IActionResult> GetAllContactsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    {
+        Pagination<ContactResponse> contacts = await _sender.Send(new GetAllContactsPaginationQuery
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Search = search
+        });
+
+        return Ok(contacts);
+    }
+
     [HttpGet("available")]
     public async Task<IActionResult> GetAvailableContacts()
     {
         List<ContactResponse> contacts = await _sender.Send(new GetAvailableContactsQuery());
+
+        return Ok(contacts);
+    }
+
+    [HttpGet("available-pagination")]
+    public async Task<IActionResult> GetAvailableContactsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    {
+        Pagination<ContactResponse> contacts = await _sender.Send(new GetAvailableContactsPaginationQuery
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Search = search
+        });
 
         return Ok(contacts);
     }

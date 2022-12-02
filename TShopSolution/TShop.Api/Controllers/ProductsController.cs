@@ -2,21 +2,21 @@
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TShop.Api.Features.AppConfigs.Queries.GetAllAppConfigs;
-using TShop.Api.Features.AppConfigs.Queries.GetAvailableAppConfigs;
 using TShop.Api.Features.Products.Commands.CreateProduct;
 using TShop.Api.Features.Products.Commands.DeleteProduct;
 using TShop.Api.Features.Products.Commands.UpdateProduct;
 using TShop.Api.Features.Products.Commands.UpdateProductImages;
 using TShop.Api.Features.Products.Queries.GetAllProducts;
+using TShop.Api.Features.Products.Queries.GetAllProductsPagination;
 using TShop.Api.Features.Products.Queries.GetAvailableProducts;
+using TShop.Api.Features.Products.Queries.GetAvailableProductsPagination;
 using TShop.Api.Features.Products.Queries.GetProductById;
-using TShop.Contracts.AppConfig;
 using TShop.Contracts.Product;
+using TShop.Contracts.Utils.Commons;
 
 namespace TShop.Api.Controllers;
 
-public class ProductsController: ApiController
+public class ProductsController : ApiController
 {
     private readonly ISender _sender;
     private readonly IMapper _mapper;
@@ -59,10 +59,36 @@ public class ProductsController: ApiController
         return Ok(products);
     }
 
+    [HttpGet("all-pagination")]
+    public async Task<IActionResult> GetAllProductsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    {
+        Pagination<ProductResponse> products = await _sender.Send(new GetAllProductsPaginationQuery
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Search = search
+        });
+
+        return Ok(products);
+    }
+
     [HttpGet("available")]
     public async Task<IActionResult> GetAvailableProducts()
     {
         List<ProductResponse> products = await _sender.Send(new GetAvailableProductsQuery());
+
+        return Ok(products);
+    }
+
+    [HttpGet("available-pagination")]
+    public async Task<IActionResult> GetAvailableProductsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    {
+        Pagination<ProductResponse> products = await _sender.Send(new GetAvailableProductsPaginationQuery
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            Search = search
+        });
 
         return Ok(products);
     }

@@ -31,13 +31,13 @@ public class BrandsController : ApiController
         ErrorOr<BrandResponse> createBrandResult = await _sender.Send(_mapper.Map<CreateBrandCommand>(request));
 
         return createBrandResult.Match(
-            brand => CreatedAtAction(nameof(GetBrandById), new {id = brand.Id}, brand),
+            brand => CreatedAtAction(nameof(GetBrandById), new { id = brand.Id }, brand),
             errors => Problem(errors)
         );
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetBrandById([FromRoute]int id)
+    public async Task<IActionResult> GetBrandById([FromRoute] int id)
     {
         ErrorOr<BrandResponse> getBrandResult = await _sender.Send(new GetBrandByIdQuery
         {
@@ -59,7 +59,7 @@ public class BrandsController : ApiController
     }
 
     [HttpGet("all-pagination")]
-    public async Task<IActionResult> GetAllBrands([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    public async Task<IActionResult> GetAllBrandsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
     {
         Pagination<BrandResponse> brands = await _sender.Send(new GetAllBrandsPaginationQuery
         {
@@ -80,7 +80,7 @@ public class BrandsController : ApiController
     }
 
     [HttpGet("available-pagination")]
-    public async Task<IActionResult> GetAvailableBrandsPagination([FromQuery]int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
+    public async Task<IActionResult> GetAvailableBrandsPagination([FromQuery] int pageIndex, [FromQuery] string? search, [FromQuery] int pageSize = Constants.DEFAULT_PAGESIZE)
     {
         Pagination<BrandResponse> brands = await _sender.Send(new GetAvailableBrandsPaginationQuery
         {

@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TShop.Api.Features.Brands.Commands.CreateBrand;
 using TShop.Api.Features.Brands.Commands.DeleteBrand;
@@ -15,6 +16,7 @@ using TShop.Contracts.Utils.Commons;
 
 namespace TShop.Api.Controllers;
 
+[Authorize]
 public class BrandsController : ApiController
 {
     private readonly ISender _sender;

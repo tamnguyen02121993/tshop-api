@@ -12,9 +12,11 @@ using TShop.Contracts.AppConfig;
 using TShop.Contracts.Utils.Commons;
 using TShop.Api.Features.AppConfigs.Queries.GetAvailableAppConfigsPagination;
 using TShop.Api.Features.AppConfigs.Queries.GetAllAppConfigsPagination;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TShop.Api.Controllers;
 
+[Authorize]
 public class AppConfigsController : ApiController
 {
     private readonly ISender _sender;

@@ -1,6 +1,5 @@
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
-using TShop.Api.Services.Categories;
 using TShop.Contracts.Category;
 using MediatR;
 using TShop.Api.Features.Categories.Commands.CreateCategory;
@@ -13,17 +12,17 @@ using TShop.Api.Features.Categories.Queries.GetAllCategories;
 using TShop.Contracts.Utils.Commons;
 using TShop.Api.Features.Categories.Queries.GetAvailableCategoriesPagination;
 using TShop.Api.Features.Categories.Queries.GetAllCategoriesPagination;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TShop.Api.Controllers;
 
+[Authorize]
 public class CategoriesController : ApiController
 {
     private readonly ISender _sender;
-    private readonly ICategoryService _categoryService;
     private readonly IMapper _mapper;
-    public CategoriesController(ICategoryService categoryService, ISender sender, IMapper mapper)
+    public CategoriesController(ISender sender, IMapper mapper)
     {
-        _categoryService = categoryService;
         _sender = sender;
         _mapper = mapper;
     }

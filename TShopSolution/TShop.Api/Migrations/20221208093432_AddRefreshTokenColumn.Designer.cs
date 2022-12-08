@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TShop.Api.EF;
@@ -11,9 +12,11 @@ using TShop.Api.EF;
 namespace TShop.Api.Migrations
 {
     [DbContext(typeof(TShopDbContext))]
-    partial class TShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221208093432_AddRefreshTokenColumn")]
+    partial class AddRefreshTokenColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

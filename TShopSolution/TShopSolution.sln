@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TShop.Api", "TShop.Api\TSho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TShop.Contracts", "TShop.Contracts\TShop.Contracts.csproj", "{C88F4534-28B3-474E-89A3-0EACCA2378B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TShop.Test", "TShop.Test\TShop.Test.csproj", "{60C696BA-B2C6-4872-8115-CE88283B4012}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C88F4534-28B3-474E-89A3-0EACCA2378B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C88F4534-28B3-474E-89A3-0EACCA2378B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C88F4534-28B3-474E-89A3-0EACCA2378B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C696BA-B2C6-4872-8115-CE88283B4012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C696BA-B2C6-4872-8115-CE88283B4012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C696BA-B2C6-4872-8115-CE88283B4012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C696BA-B2C6-4872-8115-CE88283B4012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

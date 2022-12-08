@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TShop.Api.EF;
@@ -11,9 +12,11 @@ using TShop.Api.EF;
 namespace TShop.Api.Migrations
 {
     [DbContext(typeof(TShopDbContext))]
-    partial class TShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221207144224_SeedRolesAndUsers")]
+    partial class SeedRolesAndUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,13 +102,6 @@ namespace TShop.Api.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("UserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -195,7 +191,7 @@ namespace TShop.Api.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "a572feca-11ff-460e-8a2c-ab7646299305",
+                            ConcurrencyStamp = "27ae8596-6f1a-4f0b-a7d7-61cf9f61c9c6",
                             Description = "Role for admin",
                             Name = "Admin",
                             NormalizedName = "admin"
@@ -203,7 +199,7 @@ namespace TShop.Api.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "1f215150-02c7-4685-a281-31444615d627",
+                            ConcurrencyStamp = "5b71b2b3-ab04-4657-8cd3-d4ef33b61705",
                             Description = "Role for customer",
                             Name = "Customer",
                             NormalizedName = "customer"
@@ -260,12 +256,6 @@ namespace TShop.Api.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("RefreshTokenExpireTime")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -278,29 +268,6 @@ namespace TShop.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessFailedCount = 0,
-                            Birthday = new DateTime(1993, 12, 1, 17, 0, 0, 0, DateTimeKind.Utc),
-                            ConcurrencyStamp = "28cfc76d-a8c9-4373-bd62-385e43aa4441",
-                            Email = "tamnguyen02121993@gmail.com",
-                            EmailConfirmed = true,
-                            Gender = 0,
-                            IdentityCode = "123456789",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "tamnguyen02121993@gmail.com",
-                            NormalizedUserName = "tamnguyen02121993",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGQdXc+OfNXmG+iNalYoCeFD8QSnO1mXbKbLM2weCbuYK6pZlq753UdecGehCDwItw==",
-                            PhoneNumber = "123456789",
-                            PhoneNumberConfirmed = true,
-                            RefreshToken = "",
-                            SecurityStamp = "416b5e13-1119-4032-91b8-c9d91cfc495c",
-                            TwoFactorEnabled = false,
-                            UserName = "tamnguyen02121993"
-                        });
                 });
 
             modelBuilder.Entity("TShop.Api.Models.Brand", b =>
@@ -342,111 +309,111 @@ namespace TShop.Api.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Sexy Forever",
                             Status = 0,
                             Summary = "Sexy Forever",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Trumph",
                             Status = 0,
                             Summary = "Trumph",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "iBasic",
                             Status = 0,
                             Summary = "iBasic",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Uniqlo",
                             Status = 0,
                             Summary = "Uniqlo",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 5,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Zara",
                             Status = 0,
                             Summary = "Zara",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 6,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Gucci",
                             Status = 0,
                             Summary = "Gucci",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 7,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Hermes",
                             Status = 0,
                             Summary = "Hermes",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 8,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Louis Vuiton",
                             Status = 0,
                             Summary = "Louis Vuiton",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 9,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Chanel",
                             Status = 0,
                             Summary = "Chanel",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         },
                         new
                         {
                             Id = 10,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Dior",
                             Status = 0,
                             Summary = "Dior",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9945)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3971)
                         });
                 });
 
@@ -493,73 +460,73 @@ namespace TShop.Api.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561),
                             Description = "",
                             Name = "Thời trang nam",
                             SeoUrl = "thoi-trang-nam",
                             Status = 0,
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561)
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561),
                             Description = "",
                             Name = "Thời trang nữ",
                             SeoUrl = "thoi-trang-nu",
                             Status = 0,
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561)
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561),
                             Description = "",
                             Name = "Nội y nam",
                             SeoUrl = "noi-y-nam",
                             Status = 0,
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561)
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561),
                             Description = "",
                             Name = "Nội y nữ",
                             SeoUrl = "noi-y-nu",
                             Status = 0,
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561)
                         },
                         new
                         {
                             Id = 5,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561),
                             Description = "",
                             Name = "Trang sức",
                             SeoUrl = "trang-suc",
                             Status = 0,
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561)
                         },
                         new
                         {
                             Id = 6,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561),
                             Description = "",
                             Name = "Phụ kiện",
                             SeoUrl = "phu-kien",
                             Status = 0,
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9628)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(3561)
                         });
                 });
 
@@ -866,111 +833,111 @@ namespace TShop.Api.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "quan-ao",
                             Status = 0,
                             Title = "Quần áo",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "noi-y",
                             Status = 0,
                             Title = "Nội y",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "trang-suc",
                             Status = 0,
                             Title = "Trang sức",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "phu-kien",
                             Status = 0,
                             Title = "Phụ kiện",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 5,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "ao-lot",
                             Status = 0,
                             Title = "Áo lót",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 6,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "quan-lot",
                             Status = 0,
                             Title = "Quần lót",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 7,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "ao-thun",
                             Status = 0,
                             Title = "Áo thun",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 8,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "quan-kaki",
                             Status = 0,
                             Title = "Quần kaki",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 9,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "quan-jean",
                             Status = 0,
                             Title = "Quần jean",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         },
                         new
                         {
                             Id = 10,
                             CreatedBy = "Tam Nguyen",
-                            CreatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977),
+                            CreatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082),
                             Slug = "ao-khoac",
                             Status = 0,
                             Title = "Áo khoác",
                             UpdatedBy = "Tam Nguyen",
-                            UpdatedDate = new DateTime(2022, 12, 8, 9, 34, 32, 438, DateTimeKind.Utc).AddTicks(9977)
+                            UpdatedDate = new DateTime(2022, 12, 7, 14, 42, 24, 369, DateTimeKind.Utc).AddTicks(4082)
                         });
                 });
 

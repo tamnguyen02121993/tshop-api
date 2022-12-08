@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TShop.Api.Models;
+using TShop.Api.Utils;
 using TShop.Api.Utils.Extensions;
 using TShop.Contracts.Utils.Enums;
 
@@ -66,6 +68,60 @@ public static class ModelBuilderExtension
             UpdatedDate = date
         });
         modelBuilder.Entity<Tag>().HasData(tags);
+        return modelBuilder;
+    }
+
+    public static ModelBuilder SeedRoles(this ModelBuilder modelBuilder)
+    {
+        var roleNames = new string[] { Constants.ADMIN_ROLE, Constants.CUSTOMER_ROLE };
+        var roleDescriptions = new string[] { "Role for admin", "Role for customer" };
+
+        var roles = Enumerable.Range(1, roleNames.Length).Select(x => new ApplicationRole
+        {
+            Id = x,
+            Description = roleDescriptions[x - 1],
+            Name = roleNames[x - 1],
+            ConcurrencyStamp = Guid.NewGuid().ToString(),
+            NormalizedName = roleNames[x - 1].CreateSlugString()
+        });
+        modelBuilder.Entity<ApplicationRole>().HasData(roles);
+        return modelBuilder;
+    }
+
+    public static ModelBuilder SeedUsers(this ModelBuilder modelBuilder)
+    {
+        var names = new string[] { "tamnguyen02121993" };
+        var passwords = new string[] { "P@ssw0rd" };
+        var passwordHasher = new PasswordHasher<ApplicationUser>();
+
+        var users = Enumerable.Range(1, names.Length).Select(x => new ApplicationUser
+        {
+            Id = x,
+            UserName = names[x - 1],
+            ConcurrencyStamp = Guid.NewGuid().ToString(),
+            Birthday = DateTime.Parse("12/02/1993").ToUniversalTime(),
+            Email = $"{names[x - 1]}@gmail.com",
+            Gender = Gender.Male,
+            IdentityCode = "123456789",
+            EmailConfirmed = true,
+            PhoneNumber = "123456789",
+            PhoneNumberConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString(),
+            NormalizedEmail = $"{names[x - 1]}@gmail.com".CreateSlugString(),
+            NormalizedUserName = names[x - 1].CreateSlugString(),
+            PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), passwords[x - 1])
+        });
+
+        modelBuilder.Entity<ApplicationUser>().HasData(users);
+
+        var userRoles = Enumerable.Range(1, names.Length).Select(x => new IdentityUserRole<int>
+        {
+            RoleId = 1,
+            UserId = x
+        });
+
+        modelBuilder.Entity<IdentityUserRole<int>>().HasData(userRoles);
+
         return modelBuilder;
     }
 }

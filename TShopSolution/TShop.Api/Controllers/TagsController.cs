@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TShop.Api.Features.Tags.Commands.CreateTag;
 using TShop.Api.Features.Tags.Commands.DeleteTag;
@@ -15,6 +16,7 @@ using TShop.Contracts.Utils.Commons;
 
 namespace TShop.Api.Controllers;
 
+[Authorize]
 public class TagsController : ApiController
 {
     private readonly ISender _sender;

@@ -73,8 +73,8 @@ public static class ModelBuilderExtension
 
     public static ModelBuilder SeedRoles(this ModelBuilder modelBuilder)
     {
-        var roleNames = new string[] { Constants.ADMIN_ROLE, Constants.CUSTOMER_ROLE };
-        var roleDescriptions = new string[] { "Role for admin", "Role for customer" };
+        var roleNames = new string[] { Constants.SUPER_ADMIN_ROLE, Constants.ADMIN_ROLE, Constants.CUSTOMER_ROLE };
+        var roleDescriptions = new string[] { "Role for super admin", "Role for admin", "Role for customer" };
 
         var roles = Enumerable.Range(1, roleNames.Length).Select(x => new ApplicationRole
         {
@@ -82,7 +82,7 @@ public static class ModelBuilderExtension
             Description = roleDescriptions[x - 1],
             Name = roleNames[x - 1],
             ConcurrencyStamp = Guid.NewGuid().ToString(),
-            NormalizedName = roleNames[x - 1].CreateSlugString()
+            //NormalizedName = roleNames[x - 1].ToUpper()
         });
         modelBuilder.Entity<ApplicationRole>().HasData(roles);
         return modelBuilder;
@@ -107,18 +107,23 @@ public static class ModelBuilderExtension
             PhoneNumber = "123456789",
             PhoneNumberConfirmed = true,
             SecurityStamp = Guid.NewGuid().ToString(),
-            NormalizedEmail = $"{names[x - 1]}@gmail.com".CreateSlugString(),
-            NormalizedUserName = names[x - 1].CreateSlugString(),
+            //NormalizedEmail = $"{names[x - 1]}@gmail.com".ToUpper(),
+            //NormalizedUserName = names[x - 1].ToUpper(),
             PasswordHash = passwordHasher.HashPassword(new ApplicationUser(), passwords[x - 1])
         });
 
         modelBuilder.Entity<ApplicationUser>().HasData(users);
 
-        var userRoles = Enumerable.Range(1, names.Length).Select(x => new IdentityUserRole<int>
+        var userRoles = new List<IdentityUserRole<int>>();
+        // 3 ROLES: SUPPERADMIN, ADMIN, CUSTOMER
+        for (int i = 1; i <= 3; i++)
         {
-            RoleId = 1,
-            UserId = x
-        });
+            userRoles.AddRange(Enumerable.Range(1, names.Length).Select(x => new IdentityUserRole<int>
+            {
+                RoleId = i,
+                UserId = x
+            }));
+        }
 
         modelBuilder.Entity<IdentityUserRole<int>>().HasData(userRoles);
 

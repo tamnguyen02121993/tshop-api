@@ -48,6 +48,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, ErrorOr<LoginRe
         return new LoginResponse(token,
             refreshToken,
             _jwtConfigOptions.Value.Audience,
-            _jwtConfigOptions.Value.Issuer);
+            _jwtConfigOptions.Value.Issuer,
+            user.UserName);
     }
 }

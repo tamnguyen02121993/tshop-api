@@ -4,5 +4,6 @@ public record LoginResponse(
         string AccessToken,
         string RefreshToken,
         string Issuer,
-        string Audience
+        string Audience,
+        string Name
     );
